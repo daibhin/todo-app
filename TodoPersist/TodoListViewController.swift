@@ -35,11 +35,7 @@ class TodoListViewController: UIViewController, UITableViewDataSource {
     }
     
     func deleteItem(position: Int) {
-//        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-//        let managedContext = appDelegate.managedObjectContext
-        
         let todo = todos[position]
-        
         self.managedContext.deleteObject(todo)
         todos.removeAtIndex(position)
     }
@@ -95,10 +91,6 @@ class TodoListViewController: UIViewController, UITableViewDataSource {
     }
     
     func saveItem(name: String) {
-
-//        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-//        let managedContext = appDelegate.managedObjectContext
-        
         let entityTodo =  NSEntityDescription.entityForName("Todo", inManagedObjectContext:managedContext)
         let todo = NSManagedObject(entity: entityTodo!, insertIntoManagedObjectContext: managedContext)
         

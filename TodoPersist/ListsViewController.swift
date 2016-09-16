@@ -28,9 +28,6 @@ class ListsViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-//        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-//        let managedContext = appDelegate.managedObjectContext
-        
         let fetchRequest = NSFetchRequest(entityName: "List")
         
         do {
@@ -71,9 +68,6 @@ class ListsViewController: UIViewController {
     }
     
     func saveList(name: String) {
-
-//        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-//        let managedContext = appDelegate.managedObjectContext
         
         let entity =  NSEntityDescription.entityForName("List", inManagedObjectContext: self.managedContext)
         
@@ -112,9 +106,6 @@ class ListsViewController: UIViewController {
     }
     
     func deleteList(position: Int) {
-//        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-//        let managedContext = appDelegate.managedObjectContext
-        
         let list = todoLists[position]
         
         self.managedContext.deleteObject(list)
