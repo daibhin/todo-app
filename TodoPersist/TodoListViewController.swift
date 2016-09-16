@@ -1,22 +1,29 @@
 //
-//  ViewController.swift
+//  TodoListViewController.swift
 //  TodoPersist
 //
-//  Created by David Newell on 13/09/2016.
+//  Created by David Newell on 14/09/2016.
 //  Copyright © 2016 David Newell. All rights reserved.
 //
 
 import UIKit
 import CoreData
 
-class ViewController: UIViewController, UITableViewDataSource {
+class TodoListViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     var todos = [NSManagedObject]()
-    
+    var list : NSManagedObject!
+    var appDelegate : AppDelegate!
+    var managedContext : NSManagedObjectContext!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Todo List"
+        
+        self.appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        self.managedContext = appDelegate.managedObjectContext
+        
+        title = self.list.valueForKey("title") as? String
+        self.todos = list.valueForKey("items")?.allObjects as! [NSManagedObject]
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
     
@@ -28,36 +35,21 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
     
     func deleteItem(position: Int) {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let managedContext = appDelegate.managedObjectContext
+//        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+//        let managedContext = appDelegate.managedObjectContext
         
         let todo = todos[position]
-
-        managedContext.deleteObject(todo)
+        
+        self.managedContext.deleteObject(todo)
         todos.removeAtIndex(position)
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        //1
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        
-        let managedContext = appDelegate.managedObjectContext
-        
-        //2
-        let fetchRequest = NSFetchRequest(entityName: "Todo")
-        
-        //3
-        do {
-            let results = try managedContext.executeFetchRequest(fetchRequest)
-            todos = results as! [NSManagedObject]
-        } catch let error as NSError {
-            print("Could not fetch \(error), \(error.userInfo)")
-        }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return todos.count
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -71,7 +63,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         return cell!
     }
     
-    @IBAction func addName(sender: AnyObject) {
+    @IBAction func addItem(sender: AnyObject) {
         
         let alert = UIAlertController(title: "New item",
                                       message: "Add a new todo item",
@@ -102,28 +94,27 @@ class ViewController: UIViewController, UITableViewDataSource {
                               completion: nil)
     }
     
-    func saveItem(item: String) {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let managedContext = appDelegate.managedObjectContext
+    func saveItem(name: String) {
+
+//        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+//        let managedContext = appDelegate.managedObjectContext
         
-        let entity =  NSEntityDescription.entityForName("Todo", inManagedObjectContext:managedContext)
+        let entityTodo =  NSEntityDescription.entityForName("Todo", inManagedObjectContext:managedContext)
+        let todo = NSManagedObject(entity: entityTodo!, insertIntoManagedObjectContext: managedContext)
         
-        let todo = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
-        
-        todo.setValue(item, forKey: "item")
+        todo.setValue(name, forKey: "item")
+        todo.setValue(self.list, forKey: "list")
         
         do {
-            try managedContext.save()
-            todos.append(todo)
+            try self.managedContext.save()
+            self.todos.append(todo)
         } catch let error as NSError  {
             print("Could not save \(error), \(error.userInfo)")
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
-
 }
 
