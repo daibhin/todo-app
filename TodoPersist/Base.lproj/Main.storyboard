@@ -51,10 +51,10 @@
             </objects>
             <point key="canvasLocation" x="1581.1594202898552" y="336.68478260869568"/>
         </scene>
-        <!--Title-->
+        <!--Todo-->
         <scene sceneID="Gu1-Ia-Bdc">
             <objects>
-                <viewController id="eUJ-Dg-spO" customClass="TodoItemDetailViewController" customModule="TodoPersist" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Todo" id="eUJ-Dg-spO" customClass="TodoItemDetailViewController" customModule="TodoPersist" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="P9b-et-ibD"/>
                         <viewControllerLayoutGuide type="bottom" id="Ih2-JY-oxD"/>
@@ -64,7 +64,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="R6O-2M-xA2">
-                                <frame key="frameInset" minY="277" width="414" height="459"/>
+                                <frame key="frameInset" minY="321" width="414" height="415"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -73,7 +73,7 @@
                                 </connections>
                             </tableView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ww8-e3-Atj">
-                                <frame key="frameInset" minX="20" minY="64" width="374" height="205"/>
+                                <frame key="frameInset" minX="20" minY="64" width="374" height="167"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -82,8 +82,16 @@
                                     <outlet property="delegate" destination="eUJ-Dg-spO" id="9hK-b1-Vyk"/>
                                 </connections>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sub Items" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JKB-aj-CIa">
-                                <frame key="frameInset" minX="20" minY="277" width="394" height="66"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qdi-vQ-j2S">
+                                <frame key="frameInset" minX="20" minY="239" width="374" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Save description"/>
+                                <connections>
+                                    <action selector="saveDescription:" destination="eUJ-Dg-spO" eventType="touchUpInside" id="rBc-1M-Ihg"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sub tasks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JKB-aj-CIa">
+                                <frame key="frameInset" minX="20" minY="282" width="394" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.090196078431372548" green="0.40000000000000002" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>

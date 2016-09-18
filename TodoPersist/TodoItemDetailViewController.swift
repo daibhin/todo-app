@@ -10,7 +10,6 @@ import UIKit
 import CoreData
 
 class TodoItemDetailViewController: UIViewController, UITableViewDataSource {
-    
     var appDelegate : AppDelegate!
     var managedContext : NSManagedObjectContext!
     
@@ -34,12 +33,15 @@ class TodoItemDetailViewController: UIViewController, UITableViewDataSource {
         self.textView.text = self.todo.valueForKey("information") as? String
         self.todoSubItems = todo.valueForKey("sub_items")?.allObjects as! [NSManagedObject]
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
-        view.addGestureRecognizer(tap)
     }
     
-    func dismissKeyboard() {
+    @IBAction func saveDescription(sender: AnyObject) {
+        todo.setValue(textView.text, forKey: "information")
+        do {
+            try self.managedContext.save()
+        } catch let error as NSError  {
+            print("Could not save \(error), \(error.userInfo)")
+        }
         view.endEditing(true)
     }
     
@@ -85,16 +87,6 @@ class TodoItemDetailViewController: UIViewController, UITableViewDataSource {
             print("Could not save \(error), \(error.userInfo)")
         }
     }
-    
-    func textViewDidChange(textView: UITextView) {
-        todo.setValue(textView.text, forKey: "information")
-        do {
-            try self.managedContext.save()
-        } catch let error as NSError  {
-            print("Could not save \(error), \(error.userInfo)")
-        }
-    }
-    
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return todoSubItems.count
