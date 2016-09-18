@@ -17,6 +17,7 @@
 		638727441D882837005B7C08 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 638727421D882837005B7C08 /* LaunchScreen.storyboard */; };
 		6387274F1D882837005B7C08 /* TodoPersistTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6387274E1D882837005B7C08 /* TodoPersistTests.swift */; };
 		6387275A1D882837005B7C08 /* TodoPersistUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638727591D882837005B7C08 /* TodoPersistUITests.swift */; };
+		63EDB4C11D8ED2A800811155 /* TodoItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EDB4C01D8ED2A800811155 /* TodoItemDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		638727551D882837005B7C08 /* TodoPersistUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoPersistUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		638727591D882837005B7C08 /* TodoPersistUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoPersistUITests.swift; sourceTree = "<group>"; };
 		6387275B1D882837005B7C08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63EDB4C01D8ED2A800811155 /* TodoItemDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoItemDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				638727381D882837005B7C08 /* ViewController.swift */,
 				631BB2701D89C2FF00E5346D /* ListsViewController.swift */,
 				6387273A1D882837005B7C08 /* Main.storyboard */,
+				63EDB4C01D8ED2A800811155 /* TodoItemDetailViewController.swift */,
 				631BB26E1D89C22C00E5346D /* TodoListViewController.swift */,
 				638727401D882837005B7C08 /* Assets.xcassets */,
 				638727421D882837005B7C08 /* LaunchScreen.storyboard */,
@@ -202,13 +205,19 @@
 				TargetAttributes = {
 					638727321D882837005B7C08 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = HJ4L4ARA56;
+						LastSwiftMigration = 0800;
 					};
 					638727491D882837005B7C08 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = HJ4L4ARA56;
+						LastSwiftMigration = 0800;
 						TestTargetID = 638727321D882837005B7C08;
 					};
 					638727541D882837005B7C08 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = HJ4L4ARA56;
+						LastSwiftMigration = 0800;
 						TestTargetID = 638727321D882837005B7C08;
 					};
 				};
@@ -269,6 +278,7 @@
 				638727391D882837005B7C08 /* ViewController.swift in Sources */,
 				6387273F1D882837005B7C08 /* TodoPersist.xcdatamodeld in Sources */,
 				638727371D882837005B7C08 /* AppDelegate.swift in Sources */,
+				63EDB4C11D8ED2A800811155 /* TodoItemDetailViewController.swift in Sources */,
 				631BB2711D89C2FF00E5346D /* ListsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -411,10 +421,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = HJ4L4ARA56;
 				INFOPLIST_FILE = TodoPersist/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.daibhin.TodoPersist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -422,10 +434,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = HJ4L4ARA56;
 				INFOPLIST_FILE = TodoPersist/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.daibhin.TodoPersist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
@@ -433,10 +447,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = HJ4L4ARA56;
 				INFOPLIST_FILE = TodoPersistTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.daibhin.TodoPersistTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TodoPersist.app/TodoPersist";
 			};
 			name = Debug;
@@ -445,10 +461,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = HJ4L4ARA56;
 				INFOPLIST_FILE = TodoPersistTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.daibhin.TodoPersistTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TodoPersist.app/TodoPersist";
 			};
 			name = Release;
@@ -456,10 +474,12 @@
 		638727651D882837005B7C08 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = HJ4L4ARA56;
 				INFOPLIST_FILE = TodoPersistUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.daibhin.TodoPersistUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_TARGET_NAME = TodoPersist;
 			};
 			name = Debug;
@@ -467,10 +487,12 @@
 		638727661D882837005B7C08 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = HJ4L4ARA56;
 				INFOPLIST_FILE = TodoPersistUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.daibhin.TodoPersistUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_TARGET_NAME = TodoPersist;
 			};
 			name = Release;

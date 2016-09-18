@@ -10,15 +10,20 @@ import UIKit
 import CoreData
 
 class TodoListViewController: UIViewController, UITableViewDataSource {
-    @IBOutlet weak var tableView: UITableView!
-    var todos = [NSManagedObject]()
-    var list : NSManagedObject!
     var appDelegate : AppDelegate!
     var managedContext : NSManagedObjectContext!
     
+    @IBOutlet weak var tableView: UITableView!
+    
+    var todos = [NSManagedObject]()
+    var list : NSManagedObject!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setup()
+    }
+    
+    func setup() {
         self.appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         self.managedContext = appDelegate.managedObjectContext
         
@@ -27,40 +32,33 @@ class TodoListViewController: UIViewController, UITableViewDataSource {
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            self.deleteItem(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        }
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell")
+        let todo = todos[indexPath.row]
+        cell!.textLabel!.text = todo.valueForKey("item") as? String
+        cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        
+        return cell!
     }
     
-    func deleteItem(position: Int) {
-        let todo = todos[position]
-        self.managedContext.deleteObject(todo)
-        todos.removeAtIndex(position)
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        self.performSegueWithIdentifier("ItemToDetailSegue", sender: indexPath)
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return todos.count
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell")
-        
-        let todo = todos[indexPath.row]
-        
-        cell!.textLabel!.text = todo.valueForKey("item") as? String
-        
-        return cell!
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "ItemToDetailSegue") {
+            let destination = segue.destinationViewController as! TodoItemDetailViewController
+            let todo = todos[sender!.row]
+            destination.todo = todo
+        }
     }
     
     @IBAction func addItem(sender: AnyObject) {
-        
         let alert = UIAlertController(title: "New item",
                                       message: "Add a new todo item",
                                       preferredStyle: .Alert)
@@ -82,12 +80,10 @@ class TodoListViewController: UIViewController, UITableViewDataSource {
             (textField: UITextField) -> Void in
         }
         
-        alert.addAction(saveAction)
         alert.addAction(cancelAction)
+        alert.addAction(saveAction)
         
-        presentViewController(alert,
-                              animated: true,
-                              completion: nil)
+        presentViewController(alert, animated: true, completion: nil)
     }
     
     func saveItem(name: String) {
@@ -103,6 +99,19 @@ class TodoListViewController: UIViewController, UITableViewDataSource {
         } catch let error as NSError  {
             print("Could not save \(error), \(error.userInfo)")
         }
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            self.deleteItem(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        }
+    }
+    
+    func deleteItem(position: Int) {
+        let todo = todos[position]
+        self.managedContext.deleteObject(todo)
+        todos.removeAtIndex(position)
     }
     
     override func didReceiveMemoryWarning() {

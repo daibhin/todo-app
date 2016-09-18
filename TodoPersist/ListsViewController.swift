@@ -10,17 +10,22 @@ import UIKit
 import CoreData
 
 class ListsViewController: UIViewController {
-    @IBOutlet weak var tableView: UITableView!
-    var todoLists = [NSManagedObject]()
     var appDelegate : AppDelegate!
     var managedContext : NSManagedObjectContext!
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    var todoLists = [NSManagedObject]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setup()
+    }
+    
+    func setup() {
         self.appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         self.managedContext = appDelegate.managedObjectContext
-        
+    
         title = "Todo Lists"
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
@@ -29,7 +34,6 @@ class ListsViewController: UIViewController {
         super.viewWillAppear(animated)
         
         let fetchRequest = NSFetchRequest(entityName: "List")
-        
         do {
             let results = try self.managedContext.executeFetchRequest(fetchRequest)
             todoLists = results as! [NSManagedObject]
@@ -39,7 +43,6 @@ class ListsViewController: UIViewController {
     }
     
     @IBAction func addList(sender: AnyObject) {
-        
         let alert = UIAlertController(title: "New list",
                                       message: "Add a new todo list",
                                       preferredStyle: .Alert)
@@ -61,20 +64,17 @@ class ListsViewController: UIViewController {
             (textField: UITextField) -> Void in
         }
         
-        alert.addAction(saveAction)
         alert.addAction(cancelAction)
+        alert.addAction(saveAction)
         
         presentViewController(alert, animated: true, completion: nil)
     }
     
     func saveList(name: String) {
-        
         let entity =  NSEntityDescription.entityForName("List", inManagedObjectContext: self.managedContext)
-        
         let list = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: self.managedContext)
         
         list.setValue(name, forKey: "title")
-        
         do {
             try self.managedContext.save()
             todoLists.append(list)
@@ -83,33 +83,18 @@ class ListsViewController: UIViewController {
         }
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todoLists.count
-    }
-    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell")
         
         let list = todoLists[indexPath.row]
-        
         cell!.textLabel!.text = list.valueForKey("title") as? String
+        cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         
         return cell!
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            self.deleteList(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        }
-    }
-    
-    func deleteList(position: Int) {
-        let list = todoLists[position]
-        
-        self.managedContext.deleteObject(list)
-        todoLists.removeAtIndex(position)
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return todoLists.count
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -124,6 +109,19 @@ class ListsViewController: UIViewController {
             let list = todoLists[sender!.row]
             destination.list = (list)
         }
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            self.deleteList(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        }
+    }
+    
+    func deleteList(position: Int) {
+        let list = todoLists[position]
+        self.managedContext.deleteObject(list)
+        todoLists.removeAtIndex(position)
     }
 
     override func didReceiveMemoryWarning() {
