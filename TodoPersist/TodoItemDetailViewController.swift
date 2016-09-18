@@ -33,8 +33,14 @@ class TodoItemDetailViewController: UIViewController, UITableViewDataSource {
         
         self.textView.text = self.todo.valueForKey("information") as? String
         self.todoSubItems = todo.valueForKey("sub_items")?.allObjects as! [NSManagedObject]
-
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     @IBAction func addSubItem(sender: AnyObject) {
