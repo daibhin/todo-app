@@ -54,7 +54,7 @@
         <!--Todo-->
         <scene sceneID="Gu1-Ia-Bdc">
             <objects>
-                <viewController title="Todo" id="eUJ-Dg-spO" customClass="TodoItemDetailViewController" customModule="TodoPersist" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Todo" automaticallyAdjustsScrollViewInsets="NO" id="eUJ-Dg-spO" customClass="TodoItemDetailViewController" customModule="TodoPersist" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="P9b-et-ibD"/>
                         <viewControllerLayoutGuide type="bottom" id="Ih2-JY-oxD"/>
