@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11232" systemVersion="15G1004" minimumToolsVersion="Xcode 7.3" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
-    <entity name="List" syncable="YES">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11232" systemVersion="16A323" minimumToolsVersion="Xcode 7.3" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="List" representedClassName=".List" syncable="YES">
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Todo" inverseName="list" inverseEntity="Todo" syncable="YES"/>
     </entity>
-    <entity name="SubItem" syncable="YES">
+    <entity name="SubItem" representedClassName=".SubItem" syncable="YES">
         <attribute name="completed" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="item" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Todo" inverseName="sub_items" inverseEntity="Todo" syncable="YES"/>
+        <relationship name="item" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Todo" inverseName="subItems" inverseEntity="Todo" syncable="YES"/>
     </entity>
-    <entity name="Todo" syncable="YES">
+    <entity name="Todo" representedClassName=".Todo" syncable="YES">
         <attribute name="information" optional="YES" attributeType="String" defaultValueString="Enter a description for the item" syncable="YES"/>
         <attribute name="item" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="List" inverseName="items" inverseEntity="List" syncable="YES"/>
-        <relationship name="sub_items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SubItem" inverseName="item" inverseEntity="SubItem" syncable="YES"/>
+        <relationship name="subItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SubItem" inverseName="item" inverseEntity="SubItem" syncable="YES"/>
     </entity>
     <elements>
-        <element name="List" positionX="-63" positionY="-9" width="128" height="75"/>
-        <element name="SubItem" positionX="-54" positionY="9" width="128" height="90"/>
-        <element name="Todo" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="List" positionX="-137" positionY="-72" width="128" height="75"/>
+        <element name="SubItem" positionX="304" positionY="99" width="128" height="88"/>
+        <element name="Todo" positionX="63" positionY="3" width="128" height="105"/>
     </elements>
 </model>

@@ -12,10 +12,10 @@ import CoreData
 class ListsViewController: UIViewController {
     var appDelegate : AppDelegate!
     var managedContext : NSManagedObjectContext!
-    
+
     @IBOutlet weak var tableView: UITableView!
-    
-    var todoLists = [NSManagedObject]()
+
+    var todoLists = [List]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +36,7 @@ class ListsViewController: UIViewController {
         let fetchRequest = NSFetchRequest(entityName: "List")
         do {
             let results = try self.managedContext.executeFetchRequest(fetchRequest)
-            todoLists = results as! [NSManagedObject]
+            todoLists = results as! [List]
         } catch let error as NSError {
             print("Could not fetch \(error), \(error.userInfo)")
         }
@@ -50,15 +50,13 @@ class ListsViewController: UIViewController {
         let saveAction = UIAlertAction(title: "Save",
                                        style: .Default,
                                        handler: { (action:UIAlertAction) -> Void in
-                                        
                                         let textField = alert.textFields!.first
                                         self.saveList(textField!.text!)
                                         self.tableView.reloadData()
-        })
+                                        })
         
         let cancelAction = UIAlertAction(title: "Cancel",
-                                         style: .Default) { (action: UIAlertAction) -> Void in
-        }
+                                         style: .Default) { (action: UIAlertAction) -> Void in }
         
         alert.addTextFieldWithConfigurationHandler {
             (textField: UITextField) -> Void in
@@ -72,7 +70,7 @@ class ListsViewController: UIViewController {
     
     func saveList(name: String) {
         let entity =  NSEntityDescription.entityForName("List", inManagedObjectContext: self.managedContext)
-        let list = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: self.managedContext)
+        let list = List(entity: entity!, insertIntoManagedObjectContext: self.managedContext)
         
         list.setValue(name, forKey: "title")
         do {
@@ -85,9 +83,8 @@ class ListsViewController: UIViewController {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell")
-        
         let list = todoLists[indexPath.row]
-        cell!.textLabel!.text = list.valueForKey("title") as? String
+        cell!.textLabel!.text = list.title
         cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         
         return cell!

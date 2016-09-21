@@ -15,8 +15,8 @@ class TodoListViewController: UIViewController, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var todos = [NSManagedObject]()
-    var list : NSManagedObject!
+    var todos = [Todo]()
+    var list : List!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,15 +27,15 @@ class TodoListViewController: UIViewController, UITableViewDataSource {
         self.appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         self.managedContext = appDelegate.managedObjectContext
         
-        title = self.list.valueForKey("title") as? String
-        self.todos = list.valueForKey("items")?.allObjects as! [NSManagedObject]
+        title = self.list.title
+        self.todos = list.items.allObjects as! [Todo]
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell")
         let todo = todos[indexPath.row]
-        cell!.textLabel!.text = todo.valueForKey("item") as? String
+        cell!.textLabel!.text = todo.item
         cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         
         return cell!
@@ -88,16 +88,16 @@ class TodoListViewController: UIViewController, UITableViewDataSource {
     
     func saveItem(name: String) {
         let entityTodo =  NSEntityDescription.entityForName("Todo", inManagedObjectContext:managedContext)
-        let todo = NSManagedObject(entity: entityTodo!, insertIntoManagedObjectContext: managedContext)
+        let todo = Todo(entity: entityTodo!, insertIntoManagedObjectContext: managedContext)
         
-        todo.setValue(name, forKey: "item")
+        todo.item = name
         todo.setValue(self.list, forKey: "list")
         
         do {
             try self.managedContext.save()
             self.todos.append(todo)
-        } catch let error as NSError  {
-            print("Could not save \(error), \(error.userInfo)")
+        } catch {
+            print("Could not save \(error)")
         }
     }
     

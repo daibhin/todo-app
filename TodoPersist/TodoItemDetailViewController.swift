@@ -16,8 +16,8 @@ class TodoItemDetailViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var tableView: UITableView!
     
-    var todo : NSManagedObject!
-    var todoSubItems = [NSManagedObject]()
+    var todo : Todo!
+    var todoSubItems = [SubItem]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,10 +28,10 @@ class TodoItemDetailViewController: UIViewController, UITableViewDataSource {
         self.appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         self.managedContext = appDelegate.managedObjectContext
         
-        title = self.todo.valueForKey("item") as? String
+        title = self.todo.item
         
-        self.textView.text = self.todo.valueForKey("information") as? String
-        self.todoSubItems = todo.valueForKey("sub_items")?.allObjects as! [NSManagedObject]
+        self.textView.text = self.todo.information
+        self.todoSubItems = todo.subItems.allObjects as! [SubItem]
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         
         addToolbarToKeyboard()
@@ -47,7 +47,7 @@ class TodoItemDetailViewController: UIViewController, UITableViewDataSource {
     }
     
     func saveDescription(sender: AnyObject) {
-        todo.setValue(textView.text, forKey: "information")
+        todo.information = textView.text
         do {
             try self.managedContext.save()
         } catch let error as NSError  {
@@ -85,15 +85,15 @@ class TodoItemDetailViewController: UIViewController, UITableViewDataSource {
     }
     
     func saveSubItem(name: String) {
-        let entityTodo =  NSEntityDescription.entityForName("SubItem", inManagedObjectContext:managedContext)
-        let todo = NSManagedObject(entity: entityTodo!, insertIntoManagedObjectContext: managedContext)
+        let entitySubItem = NSEntityDescription.entityForName("SubItem", inManagedObjectContext:managedContext)
+        let subItem = SubItem(entity: entitySubItem!, insertIntoManagedObjectContext: managedContext)
         
-        todo.setValue(name, forKey: "name")
-        todo.setValue(self.todo, forKey: "item")
+        subItem.name = name
+        subItem.item = self.todo
         
         do {
             try self.managedContext.save()
-            self.todoSubItems.append(todo)
+            self.todoSubItems.append(subItem)
         } catch let error as NSError  {
             print("Could not save \(error), \(error.userInfo)")
         }
@@ -105,14 +105,14 @@ class TodoItemDetailViewController: UIViewController, UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell")
-        let item = todoSubItems[indexPath.row]
+        let subItem = todoSubItems[indexPath.row]
         
-        if ((item.valueForKey("completed") as! Bool)) {
+        if (subItem.isCompleted()) {
             cell!.accessoryType = UITableViewCellAccessoryType.Checkmark
         } else {
             cell!.accessoryType = UITableViewCellAccessoryType.None
         }
-        cell!.textLabel!.text = item.valueForKey("name") as? String
+        cell!.textLabel!.text = subItem.name
         
         return cell!
     }
@@ -127,9 +127,9 @@ class TodoItemDetailViewController: UIViewController, UITableViewDataSource {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let tappedItem = todoSubItems[indexPath.row]
         
-        let completed = tappedItem.valueForKey("completed") as! Bool
-        tappedItem.setValue(!completed, forKey: "completed")
-        
+        let completed = tappedItem.isCompleted()
+        tappedItem.completed = !completed
+
         do {
             try self.managedContext.save()
             tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
