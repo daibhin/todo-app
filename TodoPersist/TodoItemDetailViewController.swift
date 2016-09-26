@@ -33,9 +33,20 @@ class TodoItemDetailViewController: UIViewController, UITableViewDataSource {
         self.textView.text = self.todo.valueForKey("information") as? String
         self.todoSubItems = todo.valueForKey("sub_items")?.allObjects as! [NSManagedObject]
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        
+        addToolbarToKeyboard()
     }
     
-    @IBAction func saveDescription(sender: AnyObject) {
+    func addToolbarToKeyboard() {
+        let toolbar = UIToolbar.init()
+        toolbar.sizeToFit()
+        let spacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: #selector(saveDescription))
+        toolbar.setItems([spacer, doneButton], animated: false)
+        textView.inputAccessoryView = toolbar
+    }
+    
+    func saveDescription(sender: AnyObject) {
         todo.setValue(textView.text, forKey: "information")
         do {
             try self.managedContext.save()
