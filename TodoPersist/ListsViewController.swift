@@ -33,13 +33,7 @@ class ListsViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        let fetchRequest = NSFetchRequest(entityName: "List")
-        do {
-            let results = try self.managedContext.executeFetchRequest(fetchRequest)
-            todoLists = results as! [List]
-        } catch let error as NSError {
-            print("Could not fetch \(error), \(error.userInfo)")
-        }
+        todoLists = List.getLists()
     }
     
     @IBAction func addList(sender: AnyObject) {

@@ -12,4 +12,17 @@ import CoreData
 class List: NSManagedObject {
     @NSManaged var title: String
     @NSManaged var items: NSSet
+    
+    static func getLists() -> [List] {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let managedContext = appDelegate.managedObjectContext
+        let fetchRequest = NSFetchRequest(entityName: "List")
+        do {
+            let results = try managedContext.executeFetchRequest(fetchRequest)
+            return results as! [List]
+        } catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
+        return [List]()
+    }
 }

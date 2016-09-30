@@ -12,6 +12,13 @@ import CoreData
 class Todo: NSManagedObject {
     @NSManaged var item: String
     @NSManaged var information: String
-    @NSManaged var list: List
+    @NSManaged var lists: NSSet
     @NSManaged var subItems: NSSet
+    
+    @NSManaged func addListsObject(list: List)
+    @NSManaged func removeListsObject(list: List)
+    
+    func isInList(list: List) -> Bool {
+        return self.lists.containsObject(list)
+    }
 }

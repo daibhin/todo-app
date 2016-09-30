@@ -11,6 +11,7 @@
 		631BB2711D89C2FF00E5346D /* ListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631BB2701D89C2FF00E5346D /* ListsViewController.swift */; };
 		633372921D99157600762330 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633372911D99157600762330 /* Todo.swift */; };
 		633372941D9919E800762330 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633372931D9919E800762330 /* List.swift */; };
+		633372961D9D074A00762330 /* ListSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633372951D9D074A00762330 /* ListSelectionViewController.swift */; };
 		638727371D882837005B7C08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638727361D882837005B7C08 /* AppDelegate.swift */; };
 		638727391D882837005B7C08 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638727381D882837005B7C08 /* ViewController.swift */; };
 		6387273C1D882837005B7C08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6387273A1D882837005B7C08 /* Main.storyboard */; };
@@ -45,6 +46,7 @@
 		631BB2701D89C2FF00E5346D /* ListsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListsViewController.swift; sourceTree = "<group>"; };
 		633372911D99157600762330 /* Todo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		633372931D9919E800762330 /* List.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
+		633372951D9D074A00762330 /* ListSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListSelectionViewController.swift; sourceTree = "<group>"; };
 		638727331D882837005B7C08 /* TodoPersist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoPersist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		638727361D882837005B7C08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		638727381D882837005B7C08 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				638727381D882837005B7C08 /* ViewController.swift */,
 				631BB2701D89C2FF00E5346D /* ListsViewController.swift */,
 				6387273A1D882837005B7C08 /* Main.storyboard */,
+				633372951D9D074A00762330 /* ListSelectionViewController.swift */,
 				63EDB4C01D8ED2A800811155 /* TodoItemDetailViewController.swift */,
 				631BB26E1D89C22C00E5346D /* TodoListViewController.swift */,
 				638727401D882837005B7C08 /* Assets.xcassets */,
@@ -286,6 +289,7 @@
 				631BB26F1D89C22C00E5346D /* TodoListViewController.swift in Sources */,
 				638727391D882837005B7C08 /* ViewController.swift in Sources */,
 				6387273F1D882837005B7C08 /* TodoPersist.xcdatamodeld in Sources */,
+				633372961D9D074A00762330 /* ListSelectionViewController.swift in Sources */,
 				633372921D99157600762330 /* Todo.swift in Sources */,
 				638727371D882837005B7C08 /* AppDelegate.swift in Sources */,
 				63F841681D9060D8007D7C43 /* SubItem.swift in Sources */,

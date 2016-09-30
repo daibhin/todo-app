@@ -2,7 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11232" systemVersion="16A323" minimumToolsVersion="Xcode 7.3" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="List" representedClassName=".List" syncable="YES">
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Todo" inverseName="list" inverseEntity="Todo" syncable="YES"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Todo" inverseName="lists" inverseEntity="Todo" syncable="YES"/>
     </entity>
     <entity name="SubItem" representedClassName=".SubItem" syncable="YES">
         <attribute name="completed" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES"/>
@@ -12,7 +12,7 @@
     <entity name="Todo" representedClassName=".Todo" syncable="YES">
         <attribute name="information" optional="YES" attributeType="String" defaultValueString="Enter a description for the item" syncable="YES"/>
         <attribute name="item" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="List" inverseName="items" inverseEntity="List" syncable="YES"/>
+        <relationship name="lists" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="List" inverseName="items" inverseEntity="List" syncable="YES"/>
         <relationship name="subItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SubItem" inverseName="item" inverseEntity="SubItem" syncable="YES"/>
     </entity>
     <elements>

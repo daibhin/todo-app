@@ -30,6 +30,21 @@ class TodoListViewController: UIViewController, UITableViewDataSource {
         title = self.list.title
         self.todos = list.items.allObjects as! [Todo]
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "longPress:")
+        self.view.addGestureRecognizer(longPressRecognizer)
+    }
+    
+    func longPress(longPressGestureRecognizer: UILongPressGestureRecognizer) {
+        if longPressGestureRecognizer.state == UIGestureRecognizerState.Began {
+            let touchPoint = longPressGestureRecognizer
+            let locationInView = touchPoint.locationInView(tableView)
+            let indexPath = tableView.indexPathForRowAtPoint(locationInView)
+            if (indexPath != nil) {
+                tableView.deselectRowAtIndexPath(indexPath!, animated: true)
+                self.performSegueWithIdentifier("ListSelectionSegue", sender: indexPath)
+            }
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -55,6 +70,18 @@ class TodoListViewController: UIViewController, UITableViewDataSource {
             let destination = segue.destinationViewController as! TodoItemDetailViewController
             let todo = todos[sender!.row]
             destination.todo = todo
+        } else if (segue.identifier == "ListSelectionSegue") {
+            
+            let nav = segue.destinationViewController as! UINavigationController
+            let destination = nav.topViewController as! ListSelectionViewController
+            
+            destination.onModalDismissed = {
+                self.todos = self.list.items.allObjects as! [Todo]
+                self.tableView.reloadData()
+            }
+            
+            let todo = todos[sender!.row]
+            destination.todo = (todo)
         }
     }
     
@@ -91,7 +118,7 @@ class TodoListViewController: UIViewController, UITableViewDataSource {
         let todo = Todo(entity: entityTodo!, insertIntoManagedObjectContext: managedContext)
         
         todo.item = name
-        todo.setValue(self.list, forKey: "list")
+        todo.addListsObject(list)
         
         do {
             try self.managedContext.save()

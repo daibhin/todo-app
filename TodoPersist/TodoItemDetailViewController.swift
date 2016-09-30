@@ -138,7 +138,6 @@ class TodoItemDetailViewController: UIViewController, UITableViewDataSource {
         }
 
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-
     }
     
     func deleteItem(position: Int) {
